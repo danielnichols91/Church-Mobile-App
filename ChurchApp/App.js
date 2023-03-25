@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import  OnlineService  from './screens/onlineService'; 
+import  OnlineService  from './screens/OnlineService'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,9 +11,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name = "onlineService"
+          name = "OnlineService"
           component={OnlineService}
-          options = {{title: "Welcome"}} // Look up more options later
+          options = {{title: "Online Service"}} // Look up more options later
         >
         </Stack.Screen>
       </Stack.Navigator>
