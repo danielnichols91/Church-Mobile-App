@@ -5,10 +5,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
+const MyTheme = {
+  dark: false,
+  colors: {
+    primary: ' rgb(50, 50, 50)',
+    background: 'rgb(190, 178, 161)',
+    card: 'rgb(255, 255, 255)',
+    text: 'rgb(0, 0, 0)',
+    border: 'rgb(176,176,176)',
+    notification: 'rgb(128, 124, 118)',
+  },
+};
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator>
         <Stack.Screen
           name = "OnlineService"
