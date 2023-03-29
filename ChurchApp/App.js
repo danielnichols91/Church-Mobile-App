@@ -24,7 +24,12 @@ export default function App() {
         <Stack.Screen
           name = "OnlineService"
           component={OnlineService}
-          options = {{title: "Online Service"}} // Look up more options later
+          options = {{
+            title: "Online Service",
+            headerStyle: {
+              textAlign: 'center',
+            },
+          }} 
         >
         </Stack.Screen>
       </Stack.Navigator>
