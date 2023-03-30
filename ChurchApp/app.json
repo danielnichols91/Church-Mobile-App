@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ChurchApp",
-    "slug": "ChurchApp",
+    "slug": "chruchapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "66ac12f2-f690-4760-84c1-75498159ea7b"
+      }
+    },
+    "owner": "danieln81"
   }
 }
