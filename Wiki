@@ -1,0 +1,9 @@
+Clone repository to a local computer. 
+
+Download all of the dependencies:
+React Native
+Expo
+
+To run the project, open a terminal and run either “npm start” or “expo start” to start the expo project and server.  
+
+Download Expo Go app on a mobile device (emulator or physical). Either scan the QR code or enter the expo address manually to open the project. The project should be built on the mobile device.
