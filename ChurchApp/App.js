@@ -19,21 +19,23 @@ const MyTheme = {
 
 export default function App() {
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name = "OnlineService"
-          component={OnlineService}
-          options = {{
-            title: "Online Service",
-            headerStyle: {
-              textAlign: 'center',
-            },
-          }} 
-        >
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container} testID="app">
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator>
+          <Stack.Screen
+            name = "OnlineService"
+            component={OnlineService}
+            options = {{
+              title: "Online Service",
+              headerStyle: {
+                textAlign: 'center',
+              },
+            }} 
+          >
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
   );
 }
 
