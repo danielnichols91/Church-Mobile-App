@@ -24,9 +24,9 @@ export default function OnlineService() {
   return (
       <View>
         <Text style={styles.subTitle}>9am Traditional</Text>
-        <YoutubePlayer height={200} play={false} videoId={videoID1}/>
+        <YoutubePlayer height={200} play={false} videoId={videoID1} data-testid ="video1"/>
         <Text style={styles.subTitle}>11am Modern</Text>
-        <YoutubePlayer height={200} play={false} videoId={videoID2}/>
+        <YoutubePlayer height={200} play={false} videoId={videoID2} data-testid ="video2"/>
         <Text
             style={styles.link}
             onPress={() => {
