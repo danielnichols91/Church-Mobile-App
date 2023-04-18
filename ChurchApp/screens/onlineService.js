@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Linking } from 'react-native';
+import { StyleSheet, Text, View, Linking, Platform } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 export default function OnlineService() {
@@ -7,13 +7,28 @@ export default function OnlineService() {
   const [videoID2, setVideoID2] = useState('');
 
   const getVideos = async () => {
+    var json=[]; 
     try {
       const response = await fetch('https://youtube.googleapis.com/youtube/v3/activities?part=snippet%2CcontentDetails&channelId=UCHo_NAei6lwlmC9HSFtO-Xw&maxResults=3&key=AIzaSyC2DjXLIDAeKi11KV4e3AIzuCUYQbd3vJs');
-      const json = await response.json();
-      setVideoID1(json.items[2].contentDetails.upload.videoId);
-      setVideoID2(json.items[0].contentDetails.upload.videoId);
+      json = await response.json();
     } catch (error) {
-      console.error(error);
+      console.error("This is a console error: "+error); 
+    }
+    try{
+      setVideoID1(json.items[2].contentDetails.upload.videoId);
+      console.log(json.items[2].contentDetails.upload.videoId);
+    }
+    catch{
+      setVideoID1(json.items[2].contentDetails.playlistItem.resourceId.videoId);
+      console.log(json.items[2].contentDetails.playlistItem.resourceId.videoId);
+    }
+    try{
+      setVideoID2(json.items[0].contentDetails.upload.videoId);
+      console.log(json.items[0].contentDetails.upload.videoId);
+    }
+    catch{
+      setVideoID2(json.items[0].contentDetails.playlistItem.resourceId.videoId);
+      console.log(json.items[0].contentDetails.playlistItem.resourceId.videoId);
     }
   };
 
@@ -21,25 +36,26 @@ export default function OnlineService() {
     getVideos();
   }, []);
 
-  return (
-      <View>
-        <Text style={styles.subTitle}>9am Traditional</Text>
-        <YoutubePlayer height={200} play={false} videoId={videoID1} data-testid ="video1"/>
-        <Text style={styles.subTitle}>11am Modern</Text>
-        <YoutubePlayer height={200} play={false} videoId={videoID2} data-testid ="video2"/>
-        <Text
-            style={styles.link}
-            onPress={() => {
-              Linking.openURL('https://www.youtube.com/channel/UCHo_NAei6lwlmC9HSFtO-Xw');
-            }}>
-          Youtube Channel
-        </Text>
+    return ( 
+        <View style={styles.container}>
+          <Text style={styles.subTitle}>9am Traditional</Text>
+          <YoutubePlayer height={200} play={false} videoId={videoID1} data-testid ="video1"/>
+          <Text style={styles.subTitle}>11am Modern</Text>
+          <YoutubePlayer height={200} play={false} videoId={videoID2} data-testid ="video2"/>
+          <Text
+              style={styles.link}
+              onPress={() => {
+                Linking.openURL('https://www.youtube.com/channel/UCHo_NAei6lwlmC9HSFtO-Xw');
+              }}>
+            Youtube Channel
+          </Text>
         </View>
-  );
-}
+    );
+  }
+
 const styles = StyleSheet.create({
-  subTitle: {
-    fontFamily: 'sans-serif-light',
+  subTitle:{
+    fontFamily: Platform.OS === 'ios' ? 'Avenir-Light' : 'sans-serif-light',
     fontSize: 22,
     backgroundColor:'rgb(50, 50, 50)',
     color: 'rgb(255,255,255)',
@@ -62,4 +78,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight:'600',
   },
+    container: {
+      flex: 1,
+    },
 });
