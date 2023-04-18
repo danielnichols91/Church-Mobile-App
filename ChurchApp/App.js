@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import  OnlineService  from './screens/OnlineService'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BottomNavBar from './bottomNavBar';
 
 const Stack = createNativeStackNavigator();
 const MyTheme = {
@@ -34,7 +35,9 @@ export default function App() {
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
+      <BottomNavBar/>
     </View>
+    
   );
 }
 
