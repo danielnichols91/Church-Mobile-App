@@ -15,20 +15,22 @@ export default function OnlineService() {
       console.error("This is a console error: "+error); 
     }
     try{
-      setVideoID1(json.items[2].contentDetails.upload.videoId);
-      console.log(json.items[2].contentDetails.upload.videoId);
+      console.log(json.items[1].contentDetails.upload.videoId);
+      setVideoID1(json.items[1].contentDetails.upload.videoId);
+      //console.log(json.items[2].contentDetails.upload.videoId);
     }
     catch{
-      setVideoID1(json.items[2].contentDetails.playlistItem.resourceId.videoId);
-      console.log(json.items[2].contentDetails.playlistItem.resourceId.videoId);
+      setVideoID1(json.items[1].contentDetails.playlistItem.resourceId.videoId);
+      //console.log(json.items[2].contentDetails.playlistItem.resourceId.videoId);
     }
     try{
-      setVideoID2(json.items[0].contentDetails.upload.videoId);
       console.log(json.items[0].contentDetails.upload.videoId);
+      setVideoID2(json.items[0].contentDetails.upload.videoId);
+      //console.log(json.items[0].contentDetails.upload.videoId);
     }
     catch{
       setVideoID2(json.items[0].contentDetails.playlistItem.resourceId.videoId);
-      console.log(json.items[0].contentDetails.playlistItem.resourceId.videoId);
+      //console.log(json.items[0].contentDetails.playlistItem.resourceId.videoId);
     }
   };
 
