@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Linking, Platform } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import BottomNavBar from '../bottomNavBar';
 
 export default function OnlineService() {
   const [videoID1, setVideoID1] = useState('');
@@ -51,6 +52,7 @@ export default function OnlineService() {
               }}>
             Youtube Channel
           </Text>
+          <BottomNavBar/>
         </View>
     );
   }
