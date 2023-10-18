@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgb(50, 50, 50)',
     height: 50,
+    width: '100%',
+    bottom: 0,
+    position: 'absolute',
   },
   navigationBtn: { 
     color: '#ffffff',

@@ -6,26 +6,15 @@ export default function Events(props) {
     const test = 0; 
     //console.log(props);
     return ( 
-        <View>
+        <View style={styles.container}>
             <BottomNavBar/>
         </View>
         
     );
-
-  
 }
 
-// const styles = StyleSheet.create({
-//   subTitle:{
-//     fontFamily: Platform.OS === 'ios' ? 'Avenir-Light' : 'sans-serif-light',
-//     fontSize: 22,
-//     backgroundColor:'rgb(50, 50, 50)',
-//     color: 'rgb(255,255,255)',
-//     margin: 20,
-//     width: 200,
-//     alignSelf: 'center',
-//     borderRadius: 5,
-//     textAlign: 'center',
-//     fontWeight:'600',
-//   }
-//});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+      },
+});
