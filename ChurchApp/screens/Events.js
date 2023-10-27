@@ -5,8 +5,8 @@ import BottomNavBar from '../bottomNavBar';
 export default function Events(props) {
     const url = "https://www.sjfirstumc.org/_functions/events";
     //const exampleURL = "https://api.github.com/users/hadley/orgs"; 
-    let [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [eventData, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const options= {
         method:"GET",
     }
@@ -19,25 +19,35 @@ export default function Events(props) {
           .then(response => response.json()) 
           .then(json => setData(json.items)) 
           .catch(error => console.log(error)) 
-          .finally(() => setLoading(false));
+          .finally(() => setLoading(true));
       }; 
-      console.log(data);
-      const Event = ({title}) => (
-        <View style={styles.event}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      );
-    return ( 
-        <View style={styles.container}>
-            <FlatList
-              listData={data}
-              renderItem={({event}) => <Event title={event.title} />}
-              keyExtractor={event => event._id}
-            />
-            <BottomNavBar/>
-        </View>
-        
-    );
+      if(loading){
+        console.log(eventData);
+        console.log(loading);
+        const Item = ({title}) => {
+            return(
+                <View style = {styles.event}>
+                    <Text style={styles.title}>{title}</Text>
+                </View>
+            )
+        }
+        const renderItem = ({item})=>(
+            <Item title={item.title}/>
+        );
+        return ( 
+            <View style={styles.container}>
+                <FlatList
+                data={eventData}
+                renderItem={renderItem}
+                keyExtractor={(item) => item._id}
+                />
+                <BottomNavBar/>
+            </View> 
+            );
+        }
+        else {
+            return(<Text>Loading is False</Text>);
+        }
 }
 
 const styles = StyleSheet.create({

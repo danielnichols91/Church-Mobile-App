@@ -11,12 +11,12 @@ function App() {
   const MyTheme = {
     dark: false,
     colors: {
-      primary: ' rgb(50, 50, 50)',
-      background: 'rgb(190, 178, 161)',
+      primary: '#9AC0CD',
+      background: '#778899',
       card: 'rgb(255, 255, 255)',
-      text: 'rgb(0, 0, 0)',
+      text: '#E8E8E8',
       border: 'rgb(176,176,176)',
-      notification: 'rgb(128, 124, 118)'
+      notification: '#8DA399'
     }
   };
   return (
