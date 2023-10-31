@@ -24,15 +24,35 @@ export default function Events(props) {
       if(loading){
         console.log(eventData);
         console.log(loading);
-        const Item = ({title}) => {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const Item = ({title, description, location, date, startTime}) => {
+            newDate = new Date(date);
+            newTime = new Date("1970-01-01T" + startTime);
+            let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM';
+            // Find current hour in AM-PM Format
+            let hour = newTime.getHours() % 12;
+            // To display "0" as "12"
+            hour = hour ? hour : 12;
+            let minutes = newTime.getMinutes();
+            minutes =  newTime.getMinutes() < 10 ? '0' + minutes : minutes;
             return(
                 <View style = {styles.event}>
-                    <Text style={styles.title}>{title}</Text>
+                    <View style = {styles.dateBox}>
+                        <Text style={styles.text}>{months[newDate.getMonth()]}</Text>
+                        <Text style={styles.text}>{newDate.getDate()}</Text>
+                    </View>
+                    <View style = {styles.eventInfo}>
+                        <Text style={styles.title}>{title}</Text>
+                        <Text style={styles.text}>{description}</Text>
+                        <Text style={styles.text}>Location: {location}</Text>
+                        <Text style={styles.text}>{hour}:{minutes} {newformat}</Text>
+                    </View>
+                    
                 </View>
             )
         }
         const renderItem = ({item})=>(
-            <Item title={item.title}/>
+            <Item title={item.title} description={item.description} location={item.location} date={item.startDatetime} startTime={item.startTime}/>
         );
         return ( 
             <View style={styles.container}>
@@ -53,9 +73,28 @@ export default function Events(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-      },
-      event: {
-      },
-      title: {
     },
+    event: {
+        backgroundColor: '#E8E8E8',
+        borderRadius:10,
+        padding: 10,
+        margin:5,
+        flexDirection: 'row',
+        flex: 1,  
+    },
+    eventInfo: {
+        flex:4,
+    },
+    dateBox:{
+        flex:1,
+    },
+    title: {
+        fontSize: 15,
+        color: '#8DA399',
+        fontWeight:'700'
+    },
+    text: {
+        color: '#000000',
+        fontSize: 12,
+    }
 });

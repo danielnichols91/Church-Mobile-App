@@ -13,8 +13,8 @@ function App() {
     colors: {
       primary: '#9AC0CD',
       background: '#778899',
-      card: 'rgb(255, 255, 255)',
-      text: '#E8E8E8',
+      card: '#CED3D8',
+      text: '#000000',
       border: 'rgb(176,176,176)',
       notification: '#8DA399'
     }

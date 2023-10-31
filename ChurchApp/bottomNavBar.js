@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'rgb(50, 50, 50)',
+    backgroundColor: '#CED3D8',
     height: 50,
     width: '100%',
     bottom: 0,
     position: 'absolute',
   },
   navigationBtn: { 
-    color: '#ffffff',
+    color: '#000000',
     fontSize: 20,
   },
 });

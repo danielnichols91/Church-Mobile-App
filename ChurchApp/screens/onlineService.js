@@ -50,7 +50,7 @@ export default function OnlineService() {
               onPress={() => {
                 Linking.openURL('https://www.youtube.com/channel/UCHo_NAei6lwlmC9HSFtO-Xw');
               }}>
-            Youtube Channel
+            Youtube Channel Link
           </Text>
           <BottomNavBar/>
         </View>
@@ -61,14 +61,22 @@ const styles = StyleSheet.create({
   subTitle:{
     fontFamily: Platform.OS === 'ios' ? 'Avenir-Light' : 'sans-serif-light',
     fontSize: 22,
-    backgroundColor:'rgb(50, 50, 50)',
-    color: 'rgb(255,255,255)',
+    backgroundColor:'#8DA399',
+    color: '#ffffff',
     margin: 20,
     width: 200,
     alignSelf: 'center',
     borderRadius: 5,
     textAlign: 'center',
     fontWeight:'600',
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
   },
   link: {
     fontFamily: 'sans-serif-light',
@@ -76,11 +84,20 @@ const styles = StyleSheet.create({
     backgroundColor:'rgb(213, 36, 43)',
     color: 'rgb(255,255,255)',
     margin: 20,
-    width: 200,
+    padding:3,
+    width: 250,
     alignSelf: 'center',
     borderRadius: 5,
     textAlign: 'center',
     fontWeight:'600',
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
   },
     container: {
       flex: 1,
