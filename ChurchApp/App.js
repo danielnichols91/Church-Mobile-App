@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomNavBar from './bottomNavBar';
 import Events from './screens/Events';
+import EventDetails from './screens/EventDetails';
 
 
 function App() {
@@ -39,6 +40,16 @@ function App() {
             component={Events}
             options = {{
               title: "Events",
+              headerStyle: {
+                textAlign: 'center',
+              },
+            }} 
+          />
+          <Stack.Screen
+            name = "EventDetails"
+            component={EventDetails}
+            options = {{
+              title: "Event Details",
               headerStyle: {
                 textAlign: 'center',
               },
