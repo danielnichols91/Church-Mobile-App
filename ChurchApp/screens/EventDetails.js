@@ -1,9 +1,14 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, TextInput} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, Pressable, Alert} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import BottomNavBar from '../bottomNavBar';
 import { Dimensions } from 'react-native';
 
 export default function EventDetails({ route, navigation }) {
     const { title, description, location, date, startTime, img, endTime, registration} = route.params;
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [numAttendees, setNumAttendees] = useState('');
     let endHour;
     let endFormat;
     let endMinutes;
@@ -18,6 +23,51 @@ export default function EventDetails({ route, navigation }) {
     let imgUrl;
     let imgUrlFull; 
     let win = Dimensions.get('window');
+    //const inputs: JSX.Element[] =[];
+    const individualSubmit=()=> {
+        const url = "https://www.sjfirstumc.org/_functions/registration";
+        let result = fetch(url,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(
+                {
+                    eventTitle: title,
+                    email: email,
+                    eventDate: date,
+                    numAttendees: "1",
+                    title: name,
+                    phone: phone,
+                }
+            )
+        });
+        if(result){
+            Alert.alert('Regestration Successful', 'Regestration Successful! Please sumbit as many individuals as needed.', [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ]);
+        }
+    }
+    const groupSubmit=()=> {
+        const url = "https://www.sjfirstumc.org/_functions/registration";
+        let result = fetch(url,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(
+                {
+                    eventTitle: title,
+                    email: email,
+                    eventDate: date,
+                    numAttendees: numAttendees,
+                    title: name,
+                    phone: phone,
+                }
+            )
+        });
+        if(result){
+            Alert.alert('Regestration Successful', 'Regestration Successful!', [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ]);
+        }
+      }
     if(img!=null){
         imgUrl= img.split("/");
         imgUrlFull = "https://static.wixstatic.com/media/" + imgUrl[3]; 
@@ -51,17 +101,71 @@ export default function EventDetails({ route, navigation }) {
                 <View style={styles.registration}>
                     <Text style={styles.formTitle}>{"Event Regestration"}</Text>
                     <Text style={styles.inputTitle}>First and Last Name:</Text>
-                    <TextInput placeholder='Enter Name' style = {styles.input}></TextInput>
+                    <TextInput 
+                        placeholder='Enter Name' 
+                        style = {styles.input}  
+                        value={name}
+                        onChangeText={(text) => setName(text)}
+                    />
                     <Text style={styles.inputTitle}>Email:</Text>
-                    <TextInput placeholder='Enter Email' style = {styles.input}></TextInput> 
-                    <Text style={styles.inputTitle}>Phone:</Text>
-                    <TextInput placeholder='Enter Phone #' style = {styles.input}></TextInput>
+                    <TextInput 
+                        placeholder='Enter Email' 
+                        keyboardType='email-address' 
+                        style = {styles.input}  
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                    /> 
+                    <Text style={styles.inputTitle }>Phone:</Text>
+                    <TextInput 
+                        keyboardType='phone-pad' 
+                        placeholder='Enter Phone #' 
+                        style = {styles.input}
+                        value={phone}  
+                        onChangeText={(text) => setPhone(text)}
+                    />
                     <Text style={styles.inputTitle}>Number of attendees(including yourself):</Text>
-                    <TextInput placeholder='Enter # of Attendees' style = {styles.input}></TextInput>   
+                    <TextInput 
+                        placeholder='Enter # of Attendees' 
+                        keyboardType='number-pad' 
+                        style = {styles.input} 
+                        value={numAttendees}
+                        onChangeText={(text) => setNumAttendees(text)}
+                    />  
+                    <Pressable style={styles.sumbitBtn} onPress={groupSubmit}>
+                        <Text style={styles.btnText}>Sumbit</Text>
+                    </Pressable>
                 </View>
             : null}
             {registration=="Individual" ? 
-                <Text>{registration + "Individual"}</Text> 
+                <View style={styles.registration}>
+                <Text style={styles.formTitle}>{"Event Regestration"}</Text>
+                <Text style={styles.inputTitle}>First and Last Name:</Text>
+                <TextInput 
+                    placeholder='Enter Name' 
+                    style = {styles.input}  
+                    value={name}
+                    onChangeText={(text) => setName(text)}
+                />
+                <Text style={styles.inputTitle}>Email:</Text>
+                <TextInput 
+                    placeholder='Enter Email' 
+                    keyboardType='email-address' 
+                    style = {styles.input}  
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                /> 
+                <Text style={styles.inputTitle }>Phone:</Text>
+                <TextInput 
+                    keyboardType='phone-pad' 
+                    placeholder='Enter Phone #' 
+                    style = {styles.input}
+                    value={phone}  
+                    onChangeText={(text) => setPhone(text)}
+                />
+                <Pressable style={styles.sumbitBtn} onPress={individualSubmit}>
+                    <Text style={styles.btnText}>Sumbit</Text>
+                </Pressable>
+            </View>
             : null}
             <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
             <BottomNavBar/>  
@@ -142,5 +246,12 @@ const styles = StyleSheet.create({
         shadowRadius: 6.27,
         elevation: 10,
         marginBottom:10,
+    },
+    sumbitBtn: {
+        backgroundColor: "#CED3D8",
+        borderRadius: 5,
+    },
+    btnText: {
+        color: '#000000',
     },
 });
