@@ -44,6 +44,9 @@ export default function EventDetails({ route, navigation }) {
             Alert.alert('Regestration Successful', 'Regestration Successful! Please sumbit as many individuals as needed.', [
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
               ]);
+            setEmail('');
+            setName('');
+            setPhone('');
         }
     }
     const groupSubmit=()=> {
@@ -66,6 +69,10 @@ export default function EventDetails({ route, navigation }) {
             Alert.alert('Regestration Successful', 'Regestration Successful!', [
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
               ]);
+              setEmail('');
+              setName('');
+              setPhone('');
+              setNumAttendees('');
         }
       }
     if(img!=null){
