@@ -23,8 +23,6 @@ export default function Events(props) {
           .finally(() => setLoading(true));
       }; 
       if(loading){
-        console.log(eventData);
-        console.log(loading);
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const Item = ({title, description, location, date, startTime, img, endTime, registration }) => {
             newDate = new Date(date);

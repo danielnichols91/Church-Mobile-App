@@ -1,13 +1,14 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import  OnlineService  from './screens/OnlineService'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BottomNavBar from './bottomNavBar';
 import Events from './screens/Events';
 import EventDetails from './screens/EventDetails';
+import registerNNPushToken from 'native-notify';
+import React, { useState, useEffect } from 'react';
 
-
-function App() {
+export default function App() {
+  registerNNPushToken(14741, 'NZGd9jHb0hi1p3wBcZYreB');
   const Stack = createNativeStackNavigator();
   const MyTheme = {
     dark: false,
@@ -21,7 +22,12 @@ function App() {
     }
   };
   return (
-    <View style={styles.container} testID="app">
+    <View style={{
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'center',}}
+      testID="app"
+    >
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
         initialRouteName='Events'>
@@ -59,13 +65,6 @@ function App() {
       </NavigationContainer>
     </View>
     
-  );
+  )
 }
-export default App;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-});
+
