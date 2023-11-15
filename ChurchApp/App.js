@@ -1,14 +1,15 @@
-import { View } from 'react-native';
+import { View, Text} from 'react-native';
 import  OnlineService  from './screens/OnlineService'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Events from './screens/Events';
 import EventDetails from './screens/EventDetails';
-import registerNNPushToken from 'native-notify';
+import {registerNNPushToken, registerIndieID} from 'native-notify';
 import React, { useState, useEffect } from 'react';
+import * as Device from 'expo-device';
 
 export default function App() {
-  registerNNPushToken(14741, 'NZGd9jHb0hi1p3wBcZYreB');
+  
   const Stack = createNativeStackNavigator();
   const MyTheme = {
     dark: false,
@@ -21,6 +22,20 @@ export default function App() {
       notification: '#8DA399'
     }
   };
+  const [deviceId, setDeviceId] = 
+    useState(Device.deviceName);
+
+  const getdeviceId = () => {
+    var uniqueId = Device.deviceName;
+    setDeviceId(uniqueId);
+  }
+  const yourLoginFunction = () => {
+    console.log(deviceId);
+    registerNNPushToken(14741, 'NZGd9jHb0hi1p3wBcZYreB');
+    registerIndieID(deviceId, 14741, 'NZGd9jHb0hi1p3wBcZYreB');
+    
+  }
+  yourLoginFunction;
   return (
     <View style={{
       flex: 1,
@@ -64,7 +79,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </View>
-    
   )
 }
 
