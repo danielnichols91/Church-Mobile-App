@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, Pressable, Alert} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, Pressable, Alert,  KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import BottomNavBar from '../bottomNavBar';
 import { Dimensions } from 'react-native';
@@ -89,6 +89,7 @@ export default function EventDetails({ route, navigation }) {
     minutes =  newTime.getMinutes() < 10 ? '0' + minutes : minutes;
     return ( 
         <SafeAreaView style={{flex: 1,}}>
+            <ScrollView>
             <SafeAreaView style={styles.container}>
                 { img!=null ? <Image style={{width: win.width, height: 200,}}source={{uri: imgUrlFull,}}/> : null }
                 <View style = {styles.event}>
@@ -105,43 +106,50 @@ export default function EventDetails({ route, navigation }) {
                 </View>
             </SafeAreaView>
             {registration=="Group" ? 
-                <View style={styles.registration}>
-                    <Text style={styles.formTitle}>{"Event Regestration"}</Text>
-                    <Text style={styles.inputTitle}>First and Last Name:</Text>
-                    <TextInput 
-                        placeholder='Enter Name' 
-                        style = {styles.input}  
-                        value={name}
-                        onChangeText={(text) => setName(text)}
-                    />
-                    <Text style={styles.inputTitle}>Email:</Text>
-                    <TextInput 
-                        placeholder='Enter Email' 
-                        keyboardType='email-address' 
-                        style = {styles.input}  
-                        value={email}
-                        onChangeText={(text) => setEmail(text)}
-                    /> 
-                    <Text style={styles.inputTitle }>Phone:</Text>
-                    <TextInput 
-                        keyboardType='phone-pad' 
-                        placeholder='Enter Phone #' 
-                        style = {styles.input}
-                        value={phone}  
-                        onChangeText={(text) => setPhone(text)}
-                    />
-                    <Text style={styles.inputTitle}>Number of attendees(including yourself):</Text>
-                    <TextInput 
-                        placeholder='Enter # of Attendees' 
-                        keyboardType='number-pad' 
-                        style = {styles.input} 
-                        value={numAttendees}
-                        onChangeText={(text) => setNumAttendees(text)}
-                    />  
-                    <Pressable style={styles.sumbitBtn} onPress={groupSubmit}>
-                        <Text style={styles.btnText}>Sumbit</Text>
-                    </Pressable>
-                </View>
+                <KeyboardAvoidingView 
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    style={styles.registration}
+                >
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <View style={styles.inner}>
+                            <Text style={styles.formTitle}>{"Event Regestration"}</Text>
+                            <Text style={styles.inputTitle}>First and Last Name:</Text>
+                            <TextInput 
+                                placeholder='Enter Name' 
+                                style = {styles.input}  
+                                value={name}
+                                onChangeText={(text) => setName(text)}
+                            />
+                            <Text style={styles.inputTitle}>Email:</Text>
+                            <TextInput 
+                                placeholder='Enter Email' 
+                                keyboardType='email-address' 
+                                style = {styles.input}  
+                                value={email}
+                                onChangeText={(text) => setEmail(text)}
+                            /> 
+                            <Text style={styles.inputTitle }>Phone:</Text>
+                            <TextInput 
+                                keyboardType='phone-pad' 
+                                placeholder='Enter Phone #' 
+                                style = {styles.input}
+                                value={phone}  
+                                onChangeText={(text) => setPhone(text)}
+                            />
+                            <Text style={styles.inputTitle}>Number of attendees(including yourself):</Text>
+                            <TextInput 
+                                placeholder='Enter # of Attendees' 
+                                keyboardType='number-pad' 
+                                style = {styles.input} 
+                                value={numAttendees}
+                                onChangeText={(text) => setNumAttendees(text)}
+                            />  
+                            <Pressable style={styles.sumbitBtn} onPress={groupSubmit}>
+                                <Text style={styles.btnText}>Sumbit</Text>
+                            </Pressable>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
             : null}
             {registration=="Individual" ? 
                 <View style={styles.registration}>
@@ -175,7 +183,8 @@ export default function EventDetails({ route, navigation }) {
             </View>
             : null}
             <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
-            <BottomNavBar/>  
+            </ScrollView> 
+            <BottomNavBar/> 
         </SafeAreaView>
     );
     }
@@ -261,4 +270,9 @@ const styles = StyleSheet.create({
     btnText: {
         color: '#000000',
     },
+    inner: {
+        padding: 1,
+        flex: 1,
+        justifyContent: 'space-around',
+      },    
 });
