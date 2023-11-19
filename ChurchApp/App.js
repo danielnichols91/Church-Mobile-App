@@ -3,6 +3,7 @@ import  OnlineService  from './screens/OnlineService';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Events from './screens/Events';
+import Home from './screens/Home';
 import EventDetails from './screens/EventDetails';
 import {registerNNPushToken, registerIndieID} from 'native-notify';
 import React, { useState, useEffect } from 'react';
@@ -45,7 +46,17 @@ export default function App() {
     >
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
-        initialRouteName='Events'>
+        initialRouteName='Home'>
+        <Stack.Screen
+            name = "Home"
+            component={Home}
+            options = {{
+              title: "Home",
+              headerStyle: {
+                textAlign: 'center',
+              },
+            }} 
+          />
           <Stack.Screen
             name = "OnlineService"
             component={OnlineService}

@@ -23,7 +23,6 @@ export default function EventDetails({ route, navigation }) {
     let imgUrl;
     let imgUrlFull; 
     let win = Dimensions.get('window');
-    //const inputs: JSX.Element[] =[];
     const individualSubmit=()=> {
         const url = "https://www.sjfirstumc.org/_functions/registration";
         let result = fetch(url,{
