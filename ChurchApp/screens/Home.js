@@ -1,14 +1,13 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Dimensions, Pressable} from 'react-native';
 import BottomNavBar from '../bottomNavBar';
-import React, {useState} from 'react';
 import { WebView } from 'react-native-webview'; 
-import {Calendar, LocaleConfig} from 'react-native-calendars';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home(route) {
-    const [selected, setSelected] = useState('');
     const imgUrlFull ="https://64.media.tumblr.com/b1838627e1359f49d1a2249b3726ac6c/tumblr_inline_oxpohv4NeY1qd3yot_1280.jpg";
     let win = Dimensions.get('window');
-
+    const upcomingEventsUrl ="https://www.hubbardumc.org/wp-content/uploads/2022/04/UpcomingEvents.jpg";
+    const navigation = useNavigation();
     return ( 
         <SafeAreaView style={{flex: 1,}}>
             <ScrollView>
@@ -17,14 +16,16 @@ export default function Home(route) {
                         <View style = {styles.eventInfo}>
                             <Text style={styles.title}>Pathway Global Methodist</Text>
                             <Text style={styles.location}>Welcome!</Text>
+                            <Pressable onPress={() => {navigation.navigate('Events');}}>
+                                <Image style={{width: (win.width*.9), height: (win.width*0.25),}}source={{uri: upcomingEventsUrl,}}/>
+                                <Text style={styles.location}>Click to check out our upcoming events!</Text>
+                            </Pressable>
                         </View>
                 </View>
-                
-                <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
-            
-            <WebView 
+                <WebView 
                     scalesPageToFit={true}
-                    bounces={false}
+                    bounces={true}
+                    nestedScrollEnabled
                     javaScriptEnabled
                     style={{ height: 300, width: win.width }}
                     source={{  
@@ -40,8 +41,9 @@ export default function Home(route) {
                             </html>
                         `,  
                     }} 
-                /> 
-                </ScrollView>
+                />
+                <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
+            </ScrollView> 
             <BottomNavBar/> 
         </SafeAreaView>
     );
@@ -100,5 +102,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         elevation: 10,
-      }  
+      },
+      inner: {
+        padding: 1,
+        flex: 1,
+        justifyContent: 'space-around',
+      }, 
 });
