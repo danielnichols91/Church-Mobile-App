@@ -1,25 +1,37 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Dimensions, Pressable} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Dimensions, Pressable, Linking} from 'react-native';
 import BottomNavBar from '../bottomNavBar';
 import { WebView } from 'react-native-webview'; 
 import { useNavigation } from '@react-navigation/native';
 
 export default function Home(route) {
-    const imgUrlFull ="https://64.media.tumblr.com/b1838627e1359f49d1a2249b3726ac6c/tumblr_inline_oxpohv4NeY1qd3yot_1280.jpg";
     let win = Dimensions.get('window');
-    const upcomingEventsUrl ="https://www.hubbardumc.org/wp-content/uploads/2022/04/UpcomingEvents.jpg";
     const navigation = useNavigation();
     return ( 
         <SafeAreaView style={{flex: 1,}}>
             <ScrollView>
-                <Image style={{width: win.width, height: (win.width*0.75),}}source={{uri: imgUrlFull,}}/>
+                <Image style={{width: win.width, height: (win.width*0.75),}}source={require('../assets/churchOutside.jpg')}/>
                 <View style = {styles.welcome}>
                         <View style = {styles.eventInfo}>
                             <Text style={styles.title}>Pathway Global Methodist</Text>
                             <Text style={styles.location}>Welcome!</Text>
                             <Pressable onPress={() => {navigation.navigate('Events');}}>
-                                <Image style={{width: (win.width*.9), height: (win.width*0.25),}}source={{uri: upcomingEventsUrl,}}/>
+                                <Image style={{width: (win.width*.9), height: (win.width*0.25),}}source={require('../assets/upcomingEvents.jpg')}/>
                                 <Text style={styles.location}>Click to check out our upcoming events!</Text>
                             </Pressable>
+                            <View style={styles.socialMedia}>
+                            <Pressable onPress={() => { Linking.openURL('https://www.facebook.com/sjfirstumc')}}>
+                                <Image style={{width: 50, height: 50, marginVertical: 10,}}source={require('../assets/facebook.png')}/>
+                            </Pressable>
+                            <Pressable onPress={() => { Linking.openURL('https://www.instagram.com/sjfirstumc/')}}>
+                                <Image style={{width: 50, height: 50, marginVertical: 10}}source={require('../assets/instagram.png')}/>
+                            </Pressable>
+                            <Pressable onPress={() => { Linking.openURL('https://www.youtube.com/@st.joefirstumc6330')}}>
+                                <Image style={{width: 50, height: 50, marginVertical: 10}}source={require('../assets/youtube.png')}/>
+                            </Pressable>
+                            <Pressable onPress={() => { Linking.openURL('https://maps.app.goo.gl/XbM2k3qxRs3pirxh6')}}>
+                                <Image style={{width: 50, height: 50, marginVertical: 10}}source={require('../assets/location.png')}/>
+                            </Pressable>
+                            </View>
                         </View>
                 </View>
                 <WebView 
@@ -42,6 +54,20 @@ export default function Home(route) {
                         `,  
                     }} 
                 />
+                <View style = {styles.welcome}>
+                    <View style = {styles.eventInfo}>
+                        <Text style={styles.title}>About Us</Text>
+                        <Pressable onPress={() => {Linking.openURL('https://www.sjfirstumc.org/beliefs')}}>
+                            <Image style={{width: (win.width*.9), height: (win.width*0.25), marginBottom:10, borderRadius:10,}}source={require('../assets/MissionBeliefs.png')}/>
+                        </Pressable>
+                        <Pressable onPress={() => {Linking.openURL('https://www.sjfirstumc.org/our-staff-new')}}>
+                            <Image style={{width: (win.width*.9), height: (win.width*0.25), marginBottom:10, borderRadius:10,}}source={require('../assets/staff.png')}/>
+                        </Pressable>
+                        <Pressable onPress={() => {Linking.openURL('https://www.sjfirstumc.org')}}>
+                            <Image style={{width: (win.width*.9), height: (win.width*0.25), marginBottom:10, borderRadius:10,}}source={require('../assets/moreInfo.png')}/>
+                        </Pressable>
+                    </View>
+                </View>
                 <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
             </ScrollView> 
             <BottomNavBar/> 
@@ -67,7 +93,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     title: {
-        fontSize: 20,
+        fontSize: 26,
         color: '#000000',
         fontWeight:'700',
         alignSelf: 'center',
@@ -108,4 +134,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'space-around',
       }, 
+      socialMedia: {
+        flexDirection: 'row',
+        flex: 1,  
+        justifyContent:'space-around',
+      },
+      soicalIcon : {
+        marginVertical: 10,
+      },
 });
