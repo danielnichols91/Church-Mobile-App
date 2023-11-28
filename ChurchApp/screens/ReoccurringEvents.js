@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity, Dimensions, Image} from 'react-native';
 import BottomNavBar from '../bottomNavBar';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Events(props) {
-    const url = "https://www.sjfirstumc.org/_functions/events";
+export default function ReoccurringEvents(props) {
+    const url = "https://www.sjfirstumc.org/_functions/reoccurringEvents";
     const navigation = useNavigation();
     const [eventData, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    let win = Dimensions.get('window');
     const options= {
         method:"GET",
     }
@@ -23,9 +24,7 @@ export default function Events(props) {
           .finally(() => setLoading(true));
       }; 
       if(loading){
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const Item = ({title, description, location, date, startTime, img, endTime, registration }) => {
-            newDate = new Date(date);
+        const Item = ({title, description, location, schedule, startTime, img, endTime }) => {
             newTime = new Date("1970-01-01T" + startTime);
             let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM';
             // Find current hour in AM-PM Format
@@ -34,43 +33,37 @@ export default function Events(props) {
             hour = hour ? hour : 12;
             let minutes = newTime.getMinutes();
             minutes =  newTime.getMinutes() < 10 ? '0' + minutes : minutes;
+            let imgUrl;
+            let imgUrlFull; 
+            if(img!=null){
+                imgUrl= img.split("/");
+                imgUrlFull = "https://static.wixstatic.com/media/" + imgUrl[3]; 
+            }
             return(
-                <View style = {styles.event} onTouchEnd={() => navigation.navigate('EventDetails', {
-                    title: title,
-                    description: description,
-                    location: location,
-                    date: date,
-                    startTime: startTime,
-                    img: img,
-                    endTime: endTime,
-                    registration: registration,
-                  })}>
-                    <View style = {styles.dateBox}>
-                        <Text style={styles.date}>{months[newDate.getMonth()]}</Text>
-                        <Text style={styles.date}>{newDate.getDate()}</Text>
-                    </View>
+                <View style = {styles.event}>
                     <View style = {styles.eventInfo}>
+                        { img!=null ? <Image style={{width: (0.9*(win.width)), height: 200,}}source={{uri: imgUrlFull,}}/> : null }
                         <Text style={styles.title}>{title}</Text>
                         <Text style={styles.time}>{hour}:{minutes} {newformat}</Text>
+                        <Text style={styles.location}>Schedule: {schedule}</Text>
                         <Text style={styles.location}>At {location}</Text>
                         <Text style={styles.text} numberOfLines={1}>{description}</Text>
                     </View>
-                    
                 </View>
             )
         }
         const renderItem = ({item})=>(
-            <Item itemData = {item} title={item.title} description={item.description} location={item.location} date={item.startDatetime} startTime={item.startTime} img={item.image} endTime={item.endDatetime} registration = {item.requestRsvp}/>
+            <Item itemData = {item} title={item.title} description={item.description} location={item.location} schedule={item.reoccurringSchedule} startTime={item.startTime} img={item.image} endTime={item.endTime}/>
         );
         return ( 
             <SafeAreaView style={{flex: 1,}}>
                 <SafeAreaView style={styles.container}>
                 <View style={styles.tabsContainer}>
                     <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
-                        <Text style={styles.eventNav}>Special Events</Text>
+                        <Text style={styles.eventNav2}>Special Events</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
-                        <Text style={styles.eventNav2}>Reoccurring Events</Text>
+                        <Text style={styles.eventNav}>Reoccurring Events</Text>
                     </TouchableOpacity>
                 </View>
                     <FlatList

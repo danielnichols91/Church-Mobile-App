@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Events from './screens/Events';
 import Home from './screens/Home';
 import EventDetails from './screens/EventDetails';
+import ReoccurringEvents from './screens/ReoccurringEvents';
 import {registerNNPushToken, registerIndieID} from 'native-notify';
 import React, { useState, useEffect } from 'react';
 import * as Device from 'expo-device';
@@ -82,6 +83,16 @@ export default function App() {
             component={EventDetails}
             options = {{
               title: "Event Details",
+              headerStyle: {
+                textAlign: 'center',
+              },
+            }} 
+          />
+          <Stack.Screen
+            name = "ReoccurringEvents"
+            component={ReoccurringEvents}
+            options = {{
+              title: "Reoccurring Events",
               headerStyle: {
                 textAlign: 'center',
               },
