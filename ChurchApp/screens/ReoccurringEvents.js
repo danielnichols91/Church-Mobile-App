@@ -58,18 +58,18 @@ export default function ReoccurringEvents(props) {
         return ( 
             <SafeAreaView style={{flex: 1,}}>
                 <SafeAreaView style={styles.container}>
-                <View style={styles.tabsContainer}>
-                    <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
-                        <Text style={styles.eventNav2}>Special Events</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
-                        <Text style={styles.eventNav}>Reoccurring Events</Text>
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.tabsContainer}>
+                        <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
+                            <Text style={styles.eventNav2}>Special Events</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
+                            <Text style={styles.eventNav}>Reoccurring Events</Text>
+                        </TouchableOpacity>
+                    </View>
                     <FlatList
-                    data={eventData}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item._id}
+                        data={eventData}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item._id}
                     />
                     <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
                 </SafeAreaView>

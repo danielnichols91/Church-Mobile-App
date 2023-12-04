@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import BottomNavBar from '../bottomNavBar';
 import { useNavigation } from '@react-navigation/native';
 
@@ -63,25 +63,27 @@ export default function Events(props) {
             <Item itemData = {item} title={item.title} description={item.description} location={item.location} date={item.startDatetime} startTime={item.startTime} img={item.image} endTime={item.endDatetime} registration = {item.requestRsvp}/>
         );
         return ( 
-            <SafeAreaView style={{flex: 1,}}>
-                <SafeAreaView style={styles.container}>
-                <View style={styles.tabsContainer}>
-                    <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
-                        <Text style={styles.eventNav}>Special Events</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
-                        <Text style={styles.eventNav2}>Reoccurring Events</Text>
-                    </TouchableOpacity>
-                </View>
+            <ScrollView style={{flex: 1,}}>
+                <View>
+                <View style={styles.container}>
+                    <View style={styles.tabsContainer}>
+                        <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
+                            <Text style={styles.eventNav}>Special Events</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
+                            <Text style={styles.eventNav2}>Reoccurring Events</Text>
+                        </TouchableOpacity>
+                    </View>
                     <FlatList
-                    data={eventData}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item._id}
+                        data={eventData}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item._id}
                     />
                     <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
-                </SafeAreaView>
+                </View>
                 <BottomNavBar/>  
-            </SafeAreaView>
+                </View>
+            </ScrollView>
             );
         }
         else {
@@ -92,6 +94,7 @@ export default function Events(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+
     },
     event: {
         backgroundColor: '#E8E8E8',
