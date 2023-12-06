@@ -21,7 +21,17 @@ export default function Events(props) {
           .then(json => setData(json.items)) 
           .catch(error => console.log(error)) 
           .finally(() => setLoading(true));
-      }; 
+      };
+      const getTabs = () => {
+        return <View style={styles.tabsContainer}>
+                    <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
+                        <Text style={styles.eventNav}>Special Events</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
+                        <Text style={styles.eventNav2}>Reoccurring Events</Text>
+                    </TouchableOpacity>
+                </View>;
+    }; 
       if(loading){
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const Item = ({title, description, location, date, startTime, img, endTime, registration }) => {
@@ -63,27 +73,18 @@ export default function Events(props) {
             <Item itemData = {item} title={item.title} description={item.description} location={item.location} date={item.startDatetime} startTime={item.startTime} img={item.image} endTime={item.endDatetime} registration = {item.requestRsvp}/>
         );
         return ( 
-            <ScrollView style={{flex: 1,}}>
-                <View>
+            <View style={{flex:1}}>
                 <View style={styles.container}>
-                    <View style={styles.tabsContainer}>
-                        <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
-                            <Text style={styles.eventNav}>Special Events</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
-                            <Text style={styles.eventNav2}>Reoccurring Events</Text>
-                        </TouchableOpacity>
-                    </View>
                     <FlatList
                         data={eventData}
                         renderItem={renderItem}
                         keyExtractor={(item) => item._id}
+                        ListHeaderComponent={getTabs}
                     />
                     <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
                 </View>
                 <BottomNavBar/>  
-                </View>
-            </ScrollView>
+            </View>
             );
         }
         else {

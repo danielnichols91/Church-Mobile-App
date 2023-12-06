@@ -23,6 +23,16 @@ export default function ReoccurringEvents(props) {
           .catch(error => console.log(error)) 
           .finally(() => setLoading(true));
       }; 
+      const getTabs = () => {
+        return <View style={styles.tabsContainer}>
+                    <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
+                        <Text style={styles.eventNav2}>Special Events</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
+                        <Text style={styles.eventNav}>Reoccurring Events</Text>
+                    </TouchableOpacity>
+                </View>;
+    }; 
       if(loading){
         const Item = ({title, description, location, schedule, startTime, img, endTime }) => {
             newTime = new Date("1970-01-01T" + startTime);
@@ -56,25 +66,18 @@ export default function ReoccurringEvents(props) {
             <Item itemData = {item} title={item.title} description={item.description} location={item.location} schedule={item.reoccurringSchedule} startTime={item.startTime} img={item.image} endTime={item.endTime}/>
         );
         return ( 
-            <SafeAreaView style={{flex: 1,}}>
-                <SafeAreaView style={styles.container}>
-                    <View style={styles.tabsContainer}>
-                        <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
-                            <Text style={styles.eventNav2}>Special Events</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() =>  navigation.navigate('ReoccurringEvents')}>
-                            <Text style={styles.eventNav}>Reoccurring Events</Text>
-                        </TouchableOpacity>
-                    </View>
+            <View style={{flex:1}}>
+                <View style={styles.container}>
                     <FlatList
                         data={eventData}
                         renderItem={renderItem}
                         keyExtractor={(item) => item._id}
+                        ListHeaderComponent={getTabs}
                     />
                     <Text style={{fontSize:40, color:'#778899'}}>BottomNavBar</Text>
-                </SafeAreaView>
+                </View>
                 <BottomNavBar/>  
-            </SafeAreaView>
+            </View>
             );
         }
         else {
