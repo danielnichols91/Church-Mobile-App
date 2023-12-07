@@ -1,13 +1,17 @@
-import { StyleSheet, View } from 'react-native';
+import { View, Text} from 'react-native';
 import  OnlineService  from './screens/OnlineService'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BottomNavBar from './bottomNavBar';
 import Events from './screens/Events';
+import Home from './screens/Home';
 import EventDetails from './screens/EventDetails';
+import ReoccurringEvents from './screens/ReoccurringEvents';
+import {registerNNPushToken, registerIndieID} from 'native-notify';
+import React, { useState, useEffect } from 'react';
+import * as Device from 'expo-device';
 
-
-function App() {
+export default function App() {
+  
   const Stack = createNativeStackNavigator();
   const MyTheme = {
     dark: false,
@@ -20,11 +24,40 @@ function App() {
       notification: '#8DA399'
     }
   };
+  const [deviceId, setDeviceId] = 
+    useState(Device.deviceName);
+
+  const getdeviceId = () => {
+    var uniqueId = Device.deviceName;
+    setDeviceId(uniqueId);
+  }
+  const yourLoginFunction = () => {
+    console.log(deviceId);
+    registerNNPushToken(14741, 'NZGd9jHb0hi1p3wBcZYreB');
+    registerIndieID(deviceId, 14741, 'NZGd9jHb0hi1p3wBcZYreB');
+    
+  }
+  yourLoginFunction;
   return (
-    <View style={styles.container} testID="app">
+    <View style={{
+      flex: 1,
+      backgroundColor: '#fff',
+      justifyContent: 'center',}}
+      testID="app"
+    >
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
-        initialRouteName='Events'>
+        initialRouteName='Home'>
+        <Stack.Screen
+            name = "Home"
+            component={Home}
+            options = {{
+              title: "Home",
+              headerStyle: {
+                textAlign: 'center',
+              },
+            }} 
+          />
           <Stack.Screen
             name = "OnlineService"
             component={OnlineService}
@@ -55,17 +88,19 @@ function App() {
               },
             }} 
           />
+          <Stack.Screen
+            name = "ReoccurringEvents"
+            component={ReoccurringEvents}
+            options = {{
+              title: "Reoccurring Events",
+              headerStyle: {
+                textAlign: 'center',
+              },
+            }} 
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
-    
-  );
+  )
 }
-export default App;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-  },
-});
+

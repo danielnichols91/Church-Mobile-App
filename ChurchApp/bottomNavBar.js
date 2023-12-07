@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const BottomNavBar = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.navigation}>
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.navigationBtn}>Home</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Events')}>
         <Text style={styles.navigationBtn}>Events</Text>
       </TouchableOpacity>
