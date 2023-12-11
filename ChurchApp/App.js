@@ -1,4 +1,4 @@
-import { View, Text} from 'react-native';
+import { View} from 'react-native';
 import  OnlineService  from './screens/OnlineService'; 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,12 +7,15 @@ import Home from './screens/Home';
 import EventDetails from './screens/EventDetails';
 import ReoccurringEvents from './screens/ReoccurringEvents';
 import {registerNNPushToken, registerIndieID} from 'native-notify';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import * as Device from 'expo-device';
 
 export default function App() {
   
+  /* Native Stack Navigator allows for a set of defined screens to opened and 
+  creates a stack of screens so users can press the back button to return to prevoius screens */
   const Stack = createNativeStackNavigator();
+  // Create overall theme for default color scheme
   const MyTheme = {
     dark: false,
     colors: {
@@ -31,6 +34,7 @@ export default function App() {
     var uniqueId = Device.deviceName;
     setDeviceId(uniqueId);
   }
+  //Used to register for device for push notifactions
   const yourLoginFunction = () => {
     console.log(deviceId);
     registerNNPushToken(14741, 'NZGd9jHb0hi1p3wBcZYreB');

@@ -4,7 +4,7 @@ import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Home(route) {
-    let win = Dimensions.get('window');
+    let win = Dimensions.get('window'); // Gets screen dimensions of device
     const navigation = useNavigation();
     return ( 
         <SafeAreaView style={{flex: 1,}}>
@@ -18,6 +18,7 @@ export default function Home(route) {
                                 <Image style={{width: (win.width*.9), height: (win.width*0.25),}}source={require('../assets/upcomingEvents.jpg')}/>
                                 <Text style={styles.location}>Click to check out our upcoming events!</Text>
                             </Pressable>
+                            {/* Image links to Facebook, Instagram, Youtube, and map location */}
                             <View style={styles.socialMedia}>
                             <Pressable onPress={() => { Linking.openURL('https://www.facebook.com/sjfirstumc')}}>
                                 <Image style={{width: 50, height: 50, marginVertical: 10,}}source={require('../assets/facebook.png')}/>
@@ -34,6 +35,7 @@ export default function Home(route) {
                             </View>
                         </View>
                 </View>
+                {/* Webview is an inset of html of the same chruch google calander on website */}
                 <WebView 
                     scalesPageToFit={true}
                     bounces={true}

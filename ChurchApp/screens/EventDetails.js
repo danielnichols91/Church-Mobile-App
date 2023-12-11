@@ -4,7 +4,8 @@ import BottomNavBar from '../bottomNavBar';
 import { Dimensions } from 'react-native';
 
 export default function EventDetails({ route, navigation }) {
-    const { title, description, location, date, startTime, img, endTime, registration} = route.params;
+    const { title, description, location, date, startTime, img, endTime, registration} = route.params; //List of parameters 
+    // Declare variables
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -12,9 +13,11 @@ export default function EventDetails({ route, navigation }) {
     let endHour;
     let endFormat;
     let endMinutes;
+    // Since end time is optional only do if not empty
     if(endTime!=""){
+        //Format time in a javascript Date 
         let newTime = new Date("1970-01-01T" + endTime);
-        endFormat = newTime.getHours() >= 12 ? 'PM' : 'AM';
+        endFormat = newTime.getHours() >= 12 ? 'PM' : 'AM'; // Change tp 12 hour format
         endHour = newTime.getHours() % 12;
         endHour = endHour ? endHour : 12; // To display "0" as "12"
         endMinutes = newTime.getMinutes();
@@ -22,9 +25,10 @@ export default function EventDetails({ route, navigation }) {
     }
     let imgUrl;
     let imgUrlFull; 
-    let win = Dimensions.get('window');
+    let win = Dimensions.get('window'); // Used to get pixel dimension of device screen 
     const individualSubmit=()=> {
         const url = "https://www.sjfirstumc.org/_functions/registration";
+        //Post api request to send a JSON with regestration infomation to wix website for individual regestration
         let result = fetch(url,{
             method:"POST",
             headers:{"Content-Type":"application/json"},
@@ -40,9 +44,11 @@ export default function EventDetails({ route, navigation }) {
             )
         });
         if(result){
+            // Based on result of attempting to send post request alrert the end user
             Alert.alert('Regestration Successful', 'Regestration Successful! Please sumbit as many individuals as needed.', [
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
               ]);
+            // Clear all of the fields
             setEmail('');
             setName('');
             setPhone('');
@@ -50,6 +56,7 @@ export default function EventDetails({ route, navigation }) {
     }
     const groupSubmit=()=> {
         const url = "https://www.sjfirstumc.org/_functions/registration";
+        //Post api request to send a JSON with regestration infomation to wix website for group regestration
         let result = fetch(url,{
             method:"POST",
             headers:{"Content-Type":"application/json"},
@@ -65,27 +72,33 @@ export default function EventDetails({ route, navigation }) {
             )
         });
         if(result){
+            // Based on result of attempting to send post request alrert the end user
             Alert.alert('Regestration Successful', 'Regestration Successful!', [
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
               ]);
+              // Clear all of the input fields
               setEmail('');
               setName('');
               setPhone('');
               setNumAttendees('');
         }
       }
+    // Since image is optional for events, this section will only run if there is an image.
     if(img!=null){
+        //Images are saved in a database on the wix website. To access these images can use the url below with the unique identifier
         imgUrl= img.split("/");
         imgUrlFull = "https://static.wixstatic.com/media/" + imgUrl[3]; 
     }
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; //Map month number to abbreviation
     let newDate = new Date(date);
     let newTime = new Date("1970-01-01T" + startTime);
-    let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM';
+    // Format time as a javascript Date
+    let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM'; // Convert to 12 hour time format
     let hour = newTime.getHours() % 12;
     hour = hour ? hour : 12; // To display "0" as "12"
     let minutes = newTime.getMinutes();
     minutes =  newTime.getMinutes() < 10 ? '0' + minutes : minutes;
+    //Return differently based on if there is an image and what type of registration if any
     return ( 
         <SafeAreaView style={{flex: 1,}}>
             <ScrollView>
