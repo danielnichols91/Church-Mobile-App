@@ -14,7 +14,7 @@ export default function Events(props) {
     useEffect(()=>{ 
         fetchData() 
       },[]); 
-    
+        // Get API equest that returns a JSON with all the upcoming special events from Wix database on website 
       const fetchData = () => { 
         fetch(url,options) 
           .then(response => response.json()) 
@@ -22,6 +22,7 @@ export default function Events(props) {
           .catch(error => console.log(error)) 
           .finally(() => setLoading(true));
       };
+      // Creates tabs for switching between special and reoccurring events
       const getTabs = () => {
         return <View style={styles.tabsContainer}>
                     <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
@@ -33,11 +34,11 @@ export default function Events(props) {
                 </View>;
     }; 
       if(loading){
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; // Used to map month number to abbreviation
         const Item = ({title, description, location, date, startTime, img, endTime, registration }) => {
             newDate = new Date(date);
             newTime = new Date("1970-01-01T" + startTime);
-            let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM';
+            let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM'; // Convert to 12 hour time format
             // Find current hour in AM-PM Format
             let hour = newTime.getHours() % 12;
             // To display "0" as "12"
@@ -69,6 +70,7 @@ export default function Events(props) {
                 </View>
             )
         }
+        // Pass parameters in when creating a new event item
         const renderItem = ({item})=>(
             <Item itemData = {item} title={item.title} description={item.description} location={item.location} date={item.startDatetime} startTime={item.startTime} img={item.image} endTime={item.endDatetime} registration = {item.requestRsvp}/>
         );

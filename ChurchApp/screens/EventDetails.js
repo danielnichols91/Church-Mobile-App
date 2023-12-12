@@ -103,6 +103,7 @@ export default function EventDetails({ route, navigation }) {
         <SafeAreaView style={{flex: 1,}}>
             <ScrollView>
             <SafeAreaView style={styles.container}>
+                {/* Place image if exists for this event, else don't put anything */}
                 { img!=null ? <Image style={{width: win.width, height: 200,}}source={{uri: imgUrlFull,}}/> : null }
                 <View style = {styles.event}>
                     <View style = {styles.dateBox}>
@@ -117,12 +118,14 @@ export default function EventDetails({ route, navigation }) {
                     </View>
                 </View>
             </SafeAreaView>
+            {/* if registration is set to Group create this section else do not*/}
             {registration=="Group" ? 
                 <KeyboardAvoidingView 
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                     style={styles.registration}
                 >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        {/* Text input fields for regestration form */}
                         <View style={styles.inner}>
                             <Text style={styles.formTitle}>{"Event Regestration"}</Text>
                             <Text style={styles.inputTitle}>First and Last Name:</Text>
@@ -163,10 +166,12 @@ export default function EventDetails({ route, navigation }) {
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>
             : null}
+            {/* If registration is set to Individual create this section else do not*/}
             {registration=="Individual" ? 
                 <View style={styles.registration}>
                 <Text style={styles.formTitle}>{"Event Regestration"}</Text>
                 <Text style={styles.inputTitle}>First and Last Name:</Text>
+                {/* Text input fields for registration form */}
                 <TextInput 
                     placeholder='Enter Name' 
                     style = {styles.input}  

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity, Dimensions, Image} from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Dimensions, Image} from 'react-native';
 import BottomNavBar from '../bottomNavBar';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,14 +8,14 @@ export default function ReoccurringEvents(props) {
     const navigation = useNavigation();
     const [eventData, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    let win = Dimensions.get('window');
+    let win = Dimensions.get('window'); // Used to get the dimension of device screen
     const options= {
         method:"GET",
     }
     useEffect(()=>{ 
         fetchData() 
       },[]); 
-    
+    // GET API request that returns json of reoccuring event from wix database on website
       const fetchData = () => { 
         fetch(url,options) 
           .then(response => response.json()) 
@@ -23,6 +23,7 @@ export default function ReoccurringEvents(props) {
           .catch(error => console.log(error)) 
           .finally(() => setLoading(true));
       }; 
+      // Creates tabs for switching between special and reoccurring events
       const getTabs = () => {
         return <View style={styles.tabsContainer}>
                     <TouchableOpacity onPress={() =>  navigation.navigate('Events')}>
@@ -33,10 +34,12 @@ export default function ReoccurringEvents(props) {
                     </TouchableOpacity>
                 </View>;
     }; 
+    // Run only when loading is done 
       if(loading){
         const Item = ({title, description, location, schedule, startTime, img, endTime }) => {
+            // Format time as a javascript Date
             newTime = new Date("1970-01-01T" + startTime);
-            let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM';
+            let newformat = newTime.getHours() >= 12 ? 'PM' : 'AM'; // Convert to 12 hour time format
             // Find current hour in AM-PM Format
             let hour = newTime.getHours() % 12;
             // To display "0" as "12"
@@ -45,6 +48,7 @@ export default function ReoccurringEvents(props) {
             minutes =  newTime.getMinutes() < 10 ? '0' + minutes : minutes;
             let imgUrl;
             let imgUrlFull; 
+            // Create image if there is one for event
             if(img!=null){
                 imgUrl= img.split("/");
                 imgUrlFull = "https://static.wixstatic.com/media/" + imgUrl[3]; 
@@ -52,6 +56,7 @@ export default function ReoccurringEvents(props) {
             return(
                 <View style = {styles.event}>
                     <View style = {styles.eventInfo}>
+                        {/* Place image if exists for this event, else don't put anything */}
                         { img!=null ? <Image style={{width: (0.9*(win.width)), height: 200,}}source={{uri: imgUrlFull,}}/> : null }
                         <Text style={styles.title}>{title}</Text>
                         <Text style={styles.time}>{hour}:{minutes} {newformat}</Text>

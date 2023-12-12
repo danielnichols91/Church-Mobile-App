@@ -51,7 +51,8 @@ export default function App() {
     >
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
-        initialRouteName='Home'>
+        initialRouteName='Home'> {/* Opens to the Home screen by default */}
+        {/* Definition of each scree for navigator */}
         <Stack.Screen
             name = "Home"
             component={Home}

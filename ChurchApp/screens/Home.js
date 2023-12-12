@@ -56,6 +56,7 @@ export default function Home(route) {
                         `,  
                     }} 
                 />
+                {/* Banner links to different website pages */}
                 <View style = {styles.welcome}>
                     <View style = {styles.eventInfo}>
                         <Text style={styles.title}>About Us</Text>
