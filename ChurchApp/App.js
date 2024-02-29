@@ -48,11 +48,11 @@ export default function App() {
       backgroundColor: '#fff',
       justifyContent: 'center',}}
       testID="app"
-    >
+    >{/* Opens to the Home screen by default */}
+        {/* Definition of each scree for navigator */}
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
-        initialRouteName='Home'> {/* Opens to the Home screen by default */}
-        {/* Definition of each scree for navigator */}
+        initialRouteName='Home'> 
         <Stack.Screen
             name = "Home"
             component={Home}

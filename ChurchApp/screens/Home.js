@@ -60,13 +60,13 @@ export default function Home(route) {
                 <View style = {styles.welcome}>
                     <View style = {styles.eventInfo}>
                         <Text style={styles.title}>About Us</Text>
-                        <Pressable onPress={() => {Linking.openURL('https://www.sjfirstumc.org/beliefs')}}>
+                        <Pressable onPress={() => {Linking.openURL('https://www.pathwaymethodist.org/about-us-1')}}>
                             <Image style={{width: (win.width*.9), height: (win.width*0.25), marginBottom:10, borderRadius:10,}}source={require('../assets/MissionBeliefs.png')}/>
                         </Pressable>
-                        <Pressable onPress={() => {Linking.openURL('https://www.sjfirstumc.org/our-staff-new')}}>
+                        <Pressable onPress={() => {Linking.openURL('https://www.pathwaymethodist.org/our-staff')}}>
                             <Image style={{width: (win.width*.9), height: (win.width*0.25), marginBottom:10, borderRadius:10,}}source={require('../assets/staff.png')}/>
                         </Pressable>
-                        <Pressable onPress={() => {Linking.openURL('https://www.sjfirstumc.org')}}>
+                        <Pressable onPress={() => {Linking.openURL('https://www.pathwaymethodist.org')}}>
                             <Image style={{width: (win.width*.9), height: (win.width*0.25), marginBottom:10, borderRadius:10,}}source={require('../assets/moreInfo.png')}/>
                         </Pressable>
                     </View>
