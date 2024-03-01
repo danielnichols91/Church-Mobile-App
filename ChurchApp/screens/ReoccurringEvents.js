@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function ReoccurringEvents(props) {
     // old website   const url = "https://www.sjfirstumc.org/_functions/reoccurringEvents";
-    const url = "https://www.sjfirstumc.org/_functions/reoccurringEvents";
+    const url = "https://www.pathwaymethodist.org/_functions/reoccurringEvents";
     const navigation = useNavigation();
     const [eventData, setData] = useState([]);
     const [loading, setLoading] = useState(false);

@@ -27,7 +27,7 @@ export default function EventDetails({ route, navigation }) {
     let imgUrlFull; 
     let win = Dimensions.get('window'); // Used to get pixel dimension of device screen 
     const individualSubmit=()=> {
-        const url = "https://www.sjfirstumc.org/_functions/registration";
+        const url = "https://www.pathwaymethodist.org/_functions/registration";
         //Post api request to send a JSON with regestration infomation to wix website for individual regestration
         let result = fetch(url,{
             method:"POST",
@@ -55,7 +55,7 @@ export default function EventDetails({ route, navigation }) {
         }
     }
     const groupSubmit=()=> {
-        const url = "https://www.sjfirstumc.org/_functions/registration";
+        const url = "https://www.pathwaymethodist.org/_functions/registration";
         //Post api request to send a JSON with regestration infomation to wix website for group regestration
         let result = fetch(url,{
             method:"POST",

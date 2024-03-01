@@ -4,7 +4,7 @@ import BottomNavBar from '../bottomNavBar';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Events(props) {
-    const url = "https://www.sjfirstumc.org/_functions/events";
+    const url = "https://www.pathwaymethodist.org/_functions/events";
     const navigation = useNavigation();
     const [eventData, setData] = useState([]);
     const [loading, setLoading] = useState(false);
